@@ -1,0 +1,18 @@
+package com.ajudabem.api.domains.user;
+
+public enum UserRole {
+
+    ADMIN("admin"),
+    USER("user"),
+    USER_ONG("user-ong");
+
+    private String role;
+
+    UserRole(String role) {
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
+    }
+}
