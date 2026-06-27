@@ -1,14 +1,11 @@
 package com.ajudabem.api.controllers;
 
-import com.ajudabem.api.dto.UserResponseDTO;
-import com.ajudabem.api.repositories.UserRepository;
+import com.ajudabem.api.dto.user.UpdateUserRequestDTO;
+import com.ajudabem.api.dto.user.UserResponseDTO;
 import com.ajudabem.api.services.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,7 +15,18 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/me")
-    private ResponseEntity<UserResponseDTO> getMe() {
+    public ResponseEntity<UserResponseDTO> getMe() {
         return ResponseEntity.ok(userService.getCurrentUser());
+    }
+
+    @PutMapping("/me")
+    public ResponseEntity<UserResponseDTO> updateMe(UpdateUserRequestDTO body) {
+        return ResponseEntity.ok(userService.updateCurrentUser(body));
+    }
+
+    @DeleteMapping("/me")
+    public ResponseEntity<Void> deleteMe() {
+        userService.deleteMe();
+        return ResponseEntity.ok().build();
     }
 }
