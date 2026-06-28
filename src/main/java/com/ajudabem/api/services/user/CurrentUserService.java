@@ -1,6 +1,7 @@
-package com.ajudabem.api.services.security;
+package com.ajudabem.api.services.user;
 
 import com.ajudabem.api.domains.user.User;
+import com.ajudabem.api.exceptions.UserNotFoundException;
 import com.ajudabem.api.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -17,7 +18,7 @@ public class CurrentUserService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         return userRepository.findByEmail(auth.getName())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
 }

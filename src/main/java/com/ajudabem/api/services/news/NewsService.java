@@ -5,9 +5,8 @@ import com.ajudabem.api.domains.news.News;
 import com.ajudabem.api.domains.user.User;
 import com.ajudabem.api.dto.news.NewsRequestDTO;
 import com.ajudabem.api.dto.news.NewsResponseDTO;
-import com.ajudabem.api.dto.user.UserResponseDTO;
 import com.ajudabem.api.repositories.NewsRepository;
-import com.ajudabem.api.services.security.CurrentUserService;
+import com.ajudabem.api.services.user.CurrentUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -40,21 +39,10 @@ public class NewsService {
         News news = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("News is not exists"));
 
-        if(dto.content() != null) {
-            news.setContent(dto.content());
-        }
-
-        if(dto.title() != null) {
-            news.setTitle(dto.title());
-        }
-
-        if(dto.subtitle() != null) {
-            news.setSubtitle(dto.subtitle());
-        }
-
-        if(dto.cover_image() != null) {
-            news.setCover_image(dto.cover_image());
-        }
+        if(dto.content() != null) news.setContent(dto.content());
+        if(dto.title() != null) news.setTitle(dto.title());
+        if(dto.subtitle() != null) news.setSubtitle(dto.subtitle());
+        if(dto.cover_image() != null) news.setCover_image(dto.cover_image());
 
         repository.save(news);
 

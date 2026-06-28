@@ -1,4 +1,4 @@
-package com.ajudabem.api.services.cors;
+package com.ajudabem.api.infra.cors;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

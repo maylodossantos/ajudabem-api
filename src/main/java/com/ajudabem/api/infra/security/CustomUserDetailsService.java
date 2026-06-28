@@ -1,4 +1,4 @@
-package com.ajudabem.api.services.security;
+package com.ajudabem.api.infra.security;
 
 import com.ajudabem.api.domains.user.User;
 import com.ajudabem.api.repositories.UserRepository;

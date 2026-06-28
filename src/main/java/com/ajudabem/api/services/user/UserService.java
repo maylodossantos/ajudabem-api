@@ -7,9 +7,10 @@ import com.ajudabem.api.dto.auth.RegisterRequestDTO;
 import com.ajudabem.api.dto.auth.ResponseDTO;
 import com.ajudabem.api.dto.user.UpdateUserRequestDTO;
 import com.ajudabem.api.dto.user.UserResponseDTO;
+import com.ajudabem.api.exceptions.InvalidPasswordException;
+import com.ajudabem.api.exceptions.UserNotFoundException;
 import com.ajudabem.api.repositories.UserRepository;
-import com.ajudabem.api.services.security.CurrentUserService;
-import com.ajudabem.api.services.security.TokenService;
+import com.ajudabem.api.infra.security.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -48,16 +49,18 @@ public class UserService {
     public ResponseDTO login(LoginRequestDTO dto) {
 
         User user = this.repository.findByEmail(dto.email()).orElseThrow(() ->
-                new RuntimeException(("User not found")));
+                new UserNotFoundException(("User not found")));
 
-        if(passwordEncoder.matches(dto.password(), user.getPassword())) {
-            String token = this.tokenService.generateToken(user);
-            user.setLast_login_at(LocalDateTime.now());
-            this.repository.save(user);
-            return new ResponseDTO(user.getName(), token);
+        if (!passwordEncoder.matches(dto.password(), user.getPassword())) {
+            throw new InvalidPasswordException("Invalid password");
         }
 
-        return null;
+        String token = this.tokenService.generateToken(user);
+
+        user.setLast_login_at(LocalDateTime.now());
+        this.repository.save(user);
+
+        return new ResponseDTO(user.getName(), token);
     }
 
     public UserResponseDTO getCurrentUser() {
