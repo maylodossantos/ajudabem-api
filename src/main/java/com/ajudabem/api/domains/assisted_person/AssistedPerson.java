@@ -2,14 +2,13 @@ package com.ajudabem.api.domains.assisted_person;
 
 import com.ajudabem.api.domains.EntityBase;
 import com.ajudabem.api.domains.user.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "assisted_people")

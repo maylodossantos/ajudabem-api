@@ -1,6 +1,7 @@
 package com.ajudabem.api.domains.assisted_person;
 
 import com.ajudabem.api.domains.EntityBase;
+import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class AssistedPersonTag extends EntityBase {
 
     @ManyToOne
